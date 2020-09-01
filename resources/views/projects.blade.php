@@ -10,15 +10,15 @@
         <div class="col-md-3">
             <form action="" method="post" autocomplete="off">
                 <div class="form-group">
-                    <label for="InputFname">First Name</label>
-                    <input class="form-control" id="InputFname" type="text" name="fname">
+                    <label for="InputPtitle">Project Title</label>
+                    <input class="form-control" id="InputPtitle" type="text" name="ptitle">
                 </div>
                 <div class="form-group">
-                    <label for="InputLname">Second Name</label>
-                    <input class="form-control" id="InputLname" type="text" name="lname">
+                    <label for="InputPdeadline">Deadline</label>
+                    <input class="form-control" id="InputPdeadline" type="text" name="pdeadline">
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Add">
+                    <input class="btn btn-primary" type="submit" value="Create">
                     <a style="float: right" class="btn btn-secondary" href="{{route('projects')}}">Back</a>
                 </div>
             </form>
