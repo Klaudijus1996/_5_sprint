@@ -15,8 +15,10 @@ use App\pages;
 */
 
 $dir = '/_5_sprint/';
-Route::get($dir.'/', 'StaffController@show');
+Route::get($dir.'/', 'StaffController@show')->name('home');
 Route::get($dir.'projects/', 'ProjectsController@show')->name('projects');
+Route::post($dir.'/', 'StaffController@add');
+Route::post($dir.'projects/', 'ProjectsController@add');
 
 
 

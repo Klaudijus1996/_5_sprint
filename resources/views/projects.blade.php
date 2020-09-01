@@ -9,6 +9,7 @@
         @if (isset($link))
         <div class="col-md-3">
             <form action="" method="post" autocomplete="off">
+                @csrf
                 <div class="form-group">
                     <label for="InputPtitle">Project Title</label>
                     <input class="form-control" id="InputPtitle" type="text" name="ptitle">

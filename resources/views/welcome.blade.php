@@ -9,6 +9,7 @@
         @if (isset($link))
         <div class="col-md-3">
             <form action="" method="post" autocomplete="off">
+                @csrf
                 <div class="form-group">
                     <label for="InputFname">First Name</label>
                     <input class="form-control" id="InputFname" type="text" name="fname">
@@ -19,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="InputJob-description">Job Description</label>
-                    <input class="form-control" id="InputJob-description" type="text">
+                    <input class="form-control" id="InputJob-description" type="text" name="job_des">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="Create">
