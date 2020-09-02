@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class ProjectsController extends Controller
 {
     public function show() {
-        $link = preg_match('/\?/i', $_SERVER['REQUEST_URI']) ? preg_replace('/\?.../i', '', $_SERVER['REQUEST_URI']) : NULL ;
+        $link = preg_match('/\?add/i', $_SERVER['REQUEST_URI']) ? preg_replace('/\?add/i', '', $_SERVER['REQUEST_URI']) : NULL ;
         return view('projects', ['projects' => \App\Projects::all(), 'link' => $link]);
     }
     public function add(Request $request){
@@ -25,5 +25,9 @@ class ProjectsController extends Controller
         //  ($employee->save() !== 1) ? 
         //     redirect(route('home'))->with('status_succereturnss', 'New employee added!') : 
         //     redirect(route('home'))->with('status_error', 'Employee couldn\' be added!');
+    }
+    public function delete($id){
+        \App\Projects::destroy($id);
+        return redirect(route('projects'));
     }
 }

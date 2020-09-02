@@ -40,7 +40,7 @@
                     <td>{{$project['id']}}</td>
                     <td>{{$project['title']}}</td>
                     <td>{{$project['deadline']}}</td>
-                    <td><a class="btn btn-secondary" href="#">Edit</a> <a class="btn btn-danger" href="#">Delete</a></td>
+                <td><a class="btn btn-secondary" href="#">Edit</a> <a class="btn btn-danger" href="{{route('pdelete', $project['id'])}}">Delete</a></td>
                 </tr>
                 @endforeach
             </table>
@@ -61,7 +61,7 @@
                     <td>{{$project['id']}}</td>
                     <td>{{$project['title']}}</td>
                     <td>{{$project['deadline']}}</td>
-                    <td><a class="btn btn-secondary" href="#">Edit</a> <a class="btn btn-danger" href="#">Delete</a></td>
+                    <td><a class="btn btn-secondary" href="#">Edit</a> <a class="btn btn-danger" href="{{route('pdelete', $project['id'])}}">Delete</a></td>
                 </tr>
                 @endforeach
             </table>

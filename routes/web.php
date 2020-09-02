@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\pages;
 
@@ -16,9 +17,20 @@ use App\pages;
 
 $dir = '/_5_sprint/';
 Route::get($dir.'/', 'StaffController@show')->name('home');
-Route::get($dir.'projects/', 'ProjectsController@show')->name('projects');
 Route::post($dir.'/', 'StaffController@add');
+Route::get($dir.'del/{id}/', 'StaffController@delete')->name('edelete');
+// Route::get($dir.'edit/{id}/', 'StaffController@edit')
+Route::get($dir.'find/{id}', function($id){
+    $ciuvas = \App\Staff::find($id);
+    return redirect()->route('home', ['ciuvas' => ['id' => $ciuvas->id, 'name' => $ciuvas->name, 'surname' => $ciuvas->surname, 'job_des' => $ciuvas->job_description]]);
+})->name('findEmployee');
+
+Route::get($dir.'projects/', 'ProjectsController@show')->name('projects');
 Route::post($dir.'projects/', 'ProjectsController@add');
+Route::get($dir.'projects/del/{id}/', 'ProjectsController@delete')->name('pdelete');
+
+
+
 
 
 
