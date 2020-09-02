@@ -21,13 +21,20 @@ Route::post($dir.'/', 'StaffController@add');
 Route::get($dir.'del/{id}/', 'StaffController@delete')->name('edelete');
 // Route::get($dir.'edit/{id}/', 'StaffController@edit')
 Route::get($dir.'find/{id}', function($id){
-    $ciuvas = \App\Staff::find($id);
-    return redirect()->route('home', ['ciuvas' => ['id' => $ciuvas->id, 'name' => $ciuvas->name, 'surname' => $ciuvas->surname, 'job_des' => $ciuvas->job_description]]);
+    $employee = \App\Staff::find($id);
+    return redirect()->route('home', ['foundEmployee' => ['id' => $employee->id, 'name' => $employee->name, 'surname' => $employee->surname, 'job_des' => $employee->job_description]]);
 })->name('findEmployee');
+Route::put($dir.'upd/{id}/', 'StaffController@update')->name('employee.update');
+
 
 Route::get($dir.'projects/', 'ProjectsController@show')->name('projects');
 Route::post($dir.'projects/', 'ProjectsController@add');
 Route::get($dir.'projects/del/{id}/', 'ProjectsController@delete')->name('pdelete');
+Route::get($dir.'projects/find/{id}', function($id){
+    $project = \App\Projects::find($id);
+    return redirect()->route('projects', ['foundProject' => ['id' => $project->id, 'title' => $project->title, 'deadline' => $project->deadline]]);
+})->name('findProject');
+Route::put($dir.'/projects/upd/{id}/', 'ProjectsController@update')->name('project.update');
 
 
 

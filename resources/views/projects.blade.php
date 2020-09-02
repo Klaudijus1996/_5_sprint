@@ -40,7 +40,7 @@
                     <td>{{$project['id']}}</td>
                     <td>{{$project['title']}}</td>
                     <td>{{$project['deadline']}}</td>
-                <td><a class="btn btn-secondary" href="#">Edit</a> <a class="btn btn-danger" href="{{route('pdelete', $project['id'])}}">Delete</a></td>
+                <td><a class="btn btn-secondary" href="{{route('findProject', $project['id'])}}">Edit</a> <a class="btn btn-danger" href="{{route('pdelete', $project['id'])}}">Delete</a></td>
                 </tr>
                 @endforeach
             </table>
@@ -61,7 +61,7 @@
                     <td>{{$project['id']}}</td>
                     <td>{{$project['title']}}</td>
                     <td>{{$project['deadline']}}</td>
-                    <td><a class="btn btn-secondary" href="#">Edit</a> <a class="btn btn-danger" href="{{route('pdelete', $project['id'])}}">Delete</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('findProject', $project['id'])}}">Edit</a> <a class="btn btn-danger" href="{{route('pdelete', $project['id'])}}">Delete</a></td>
                 </tr>
                 @endforeach
             </table>
@@ -70,6 +70,23 @@
     <a class='btn btn-light' href="{{$link."?add"}}">Add Project</a>
     @endif
 </div>
-
-
+@if (isset($_GET['foundProject']))
+<div class="col-md-3">
+    <form action="{{route('project.update',$_GET['foundProject']['id'])}}" method="post" autocomplete="off">
+        @method('PUT') @csrf
+        <div class="form-group">
+            <label for="InputFname">Title</label>
+        <input class="form-control" id="InputFname" type="text" name="update-pname" value="{{$_GET['foundProject']['title']}}">
+        </div>
+        <div class="form-group">
+            <label for="InputLname">Deadline</label>
+            <input class="form-control" id="InputLname" type="text" name="update-deadline" value="{{$_GET['foundProject']['deadline']}}">
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Submit">
+            <a style="float: right" class="btn btn-secondary" href="{{route('projects')}}">Back</a>
+        </div>
+    </form>
+</div>
+@endif
 @endsection

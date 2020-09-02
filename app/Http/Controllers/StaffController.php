@@ -31,9 +31,22 @@ class StaffController extends Controller
         \App\Staff::destroy($id);
         return redirect(route('home'));
     }
-    // public function find($id) {
-    //     $employee = \App\Staff::find($id);
-    //     return var_dump($posts->title);
-    //     // return view('blogposts', ['kekw' => $posts->title]);
-    // }
+    public function update($id, Request $request){
+        // [Dėmesio] validacijoje unique turi būti nurodytas teisingas lentelės pavadinimas!
+        // galime pažiūrėti, kas bus jei bus neteisingas
+        // $this->validate($request, [
+        //     'title' => 'required|unique:blogposts,title|max:5',
+        //     'text' => 'required',
+        // ]);
+        $employee = \App\Staff::find($id);
+        $employee->name = $request['ufname'];
+        $employee->surname = $request['ulname'];
+        $employee->job_description = $request['ujob_des'];
+        $employee->save();
+        return redirect(route('home'));
+        // return ($bp->save() !== 1) ? 
+        //     redirect('/posts/'.$id)->with('status_success', 'Post updated!') : 
+        //     redirect('/posts/'.$id)->with('status_error', 'Post was not updated!');
+        //     }
+    }
 }

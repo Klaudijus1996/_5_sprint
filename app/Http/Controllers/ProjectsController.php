@@ -30,4 +30,21 @@ class ProjectsController extends Controller
         \App\Projects::destroy($id);
         return redirect(route('projects'));
     }
+    public function update($id, Request $request){
+        // [Dėmesio] validacijoje unique turi būti nurodytas teisingas lentelės pavadinimas!
+        // galime pažiūrėti, kas bus jei bus neteisingas
+        // $this->validate($request, [
+        //     'title' => 'required|unique:blogposts,title|max:5',
+        //     'text' => 'required',
+        // ]);
+        $project = \App\Projects::find($id);
+        $project->title = $request['update-pname'];
+        $project->deadline = $request['update-deadline'];
+        $project->save();
+        return redirect(route('projects'));
+        // return ($bp->save() !== 1) ? 
+        //     redirect('/posts/'.$id)->with('status_success', 'Post updated!') : 
+        //     redirect('/posts/'.$id)->with('status_error', 'Post was not updated!');
+        //     }
+    }
 }

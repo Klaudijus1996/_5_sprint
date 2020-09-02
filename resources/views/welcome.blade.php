@@ -78,30 +78,28 @@
     <a class='btn btn-light' href="{{$link."?add"}}">Add Employee</a>
     @endif
 </div>
-@if (isset($_GET['ciuvas']))
-<h1>{{$_GET['ciuvas']['name']}}</h1>
+@if (isset($_GET['foundEmployee']))
 <div class="col-md-3">
-    <form action="" method="post" autocomplete="off">
-        @csrf
+    <form action="{{route('employee.update',$_GET['foundEmployee']['id'])}}" method="post" autocomplete="off">
+        @method('PUT') @csrf
         <div class="form-group">
             <label for="InputFname">First Name</label>
-        <input class="form-control" id="InputFname" type="text" name="ufname" value="{{$_GET['ciuvas']['name']}}">
+        <input class="form-control" id="InputFname" type="text" name="ufname" value="{{$_GET['foundEmployee']['name']}}">
         </div>
         <div class="form-group">
             <label for="InputLname">Last Name</label>
-            <input class="form-control" id="InputLname" type="text" name="ulname" value="{{$_GET['ciuvas']['surname']}}">
+            <input class="form-control" id="InputLname" type="text" name="ulname" value="{{$_GET['foundEmployee']['surname']}}">
         </div>
         <div class="form-group">
             <label for="InputJob-description">Job Description</label>
-            <input class="form-control" id="InputJob-description" type="text" name="ujob_des" value="{{$_GET['ciuvas']['job_des']}}">
+            <input class="form-control" id="InputJob-description" type="text" name="ujob_des" value="{{$_GET['foundEmployee']['job_des']}}">
         </div>
         <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="Update">
+            <input class="btn btn-primary" type="submit" value="Submit">
             <a style="float: right" class="btn btn-secondary" href="{{route('home')}}">Back</a>
         </div>
     </form>
 </div>
-
 @endif
 
 
