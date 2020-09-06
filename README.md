@@ -1,4 +1,4 @@
-# 5.th Sprint project :: 
+# 5.th Sprint project
 #### CRUD
 To test CRUD please open your MySQL workbench, make a connection for:<br>
 username: root<br>
