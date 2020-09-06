@@ -1,6 +1,9 @@
 # 5.th Sprint project
 #### CRUD
-To test CRUD please open your MySQL workbench, make a connection for:<br>
+To test CRUD please open your ampps <b>www</b> folder, click the right mouse button, open git bash and
+execute the following : <b>php composer.phar create-project laravel/laravel _5_sprint</b>.<br>
+Once you have the fresh laravel project, download <p>_5_sprint.zip</p> and extract the files to fresh <p>_5_sprint project</p>.<br>
+Open MySQL workbench, make a connection for:<br>
 username: root<br>
 password: mysql<br>
 Create a new database called <b>crud</b>, refresh shemas on the left side of the screen, select<br>
