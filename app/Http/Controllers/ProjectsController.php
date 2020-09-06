@@ -3,48 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProjectsController extends Controller
 {
-    public function show() {
-        $link = preg_match('/\?add/i', $_SERVER['REQUEST_URI']) ? preg_replace('/\?add/i', '', $_SERVER['REQUEST_URI']) : NULL ;
-        return view('projects', ['projects' => \App\Projects::all(), 'link' => $link]);
+    
+    public function find($id) {
+        $project = \App\Projects::find($id);
+        $title = $project->title == NULL ? "" : $project->title;
+        $deadline = $project->deadline == NULL ? "" : $project->deadline;
+        
+        return redirect()->route('projects', ['foundProject' => ['id' => $project->id, 'title' => $title, 'deadline' => $deadline]]);
     }
-    public function add(Request $request){
-        // $this->validate($request, [
-        //     // [Dėmesio] validacijoje unique turi būti nurodytas teisingas lentelės pavadinimas!
-        //     // galime pažiūrėti, kas bus jei bus neteisingas
-        //        'name' => 'required',
-        //        'surname' => 'required'
-        //    ]);   
+    public function getID($id) {
+        $project = \App\Projects::find($id);
+        $projectID = $project->id;
+        return redirect()->route('projects', ['projectID' => $projectID]);
+    }
+    public function assign($id, Request $request) {
+        $employee = \App\Staff::find($request['assign-employee']);
+        $employee->project_id = $id;
+        $employee->save();
+        return redirect(route('projects'));
+    }
+    public function store(Request $request){
+        $date = date_create();
+        date_add($date,date_interval_create_from_date_string("7 days"));
+        $deadline = empty($request['pdeadline']) || preg_match('/[A-z]/i', $request['pdeadline']) ? date_format($date, "Y-m-d") : $request['pdeadline'];
         $project = new \App\Projects();
         $project->title = $request['ptitle'];
-        $project->deadline = $request['pdeadline'];
-        $project->save();
-        return redirect(route('projects'));
-        //  ($employee->save() !== 1) ? 
-        //     redirect(route('home'))->with('status_succereturnss', 'New employee added!') : 
-        //     redirect(route('home'))->with('status_error', 'Employee couldn\' be added!');
+        $project->deadline = $deadline;
+        if($project->title == NULL)
+            return redirect(route('projects').'?add')->with('status_error', 'ERROR: Failed to create a project!');
+        return ($project->save() !== 1) ? 
+            redirect(route('projects'))->with('status_success', 'New project created succesfully!') : 
+            redirect(route('projects'))->with('status_error', 'ERROR: Failed to create a project!');
     }
     public function delete($id){
         \App\Projects::destroy($id);
         return redirect(route('projects'));
     }
     public function update($id, Request $request){
-        // [Dėmesio] validacijoje unique turi būti nurodytas teisingas lentelės pavadinimas!
-        // galime pažiūrėti, kas bus jei bus neteisingas
-        // $this->validate($request, [
-        //     'title' => 'required|unique:blogposts,title|max:5',
-        //     'text' => 'required',
-        // ]);
         $project = \App\Projects::find($id);
         $project->title = $request['update-pname'];
-        $project->deadline = $request['update-deadline'];
-        $project->save();
-        return redirect(route('projects'));
-        // return ($bp->save() !== 1) ? 
-        //     redirect('/posts/'.$id)->with('status_success', 'Post updated!') : 
-        //     redirect('/posts/'.$id)->with('status_error', 'Post was not updated!');
-        //     }
+        $project->deadline = $request['update-deadline'] == NULL ? $project->deadline : $request['update-deadline'];
+        if($project->title == NULL || preg_match('/[A-z]/i', $project->deadline))
+            return redirect("_5_sprint/projects/find/$id/")->with('status_error', 'ERROR: Failed to update project!');
+        return ($project->save() !== 1) ? 
+            redirect(route('projects'))->with('status_success', 'Project updated!') : 
+            redirect(route('projects'))->with('status_error', 'ERROR: Failed to update project!');
+            
     }
+
+    public $fillable = ['title', 'deadline'];
+    public function staff(){
+        return $this->hasMany('App\Staff');
+    }
+
+
 }

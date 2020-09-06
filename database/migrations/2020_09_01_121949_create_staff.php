@@ -15,10 +15,12 @@ class CreateStaff extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('surname');
-            $table->string('job_description');
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('job_description')->nullable();
+            $table->bigInteger('project_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');
         });
     }
 
